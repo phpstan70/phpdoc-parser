@@ -12,21 +12,28 @@ trait NodeAttributes
 
 	/**
 	 * @param mixed $value
+	 *
+	 * @return void
+	 * @param string $key
 	 */
-	public function setAttribute(string $key, $value): void
+	public function setAttribute($key, $value)
 	{
 		$this->attributes[$key] = $value;
 	}
 
-	public function hasAttribute(string $key): bool
+	/**
+	 * @param string $key
+	 */
+	public function hasAttribute($key): bool
 	{
 		return array_key_exists($key, $this->attributes);
 	}
 
 	/**
 	 * @return mixed
+	 * @param string $key
 	 */
-	public function getAttribute(string $key)
+	public function getAttribute($key)
 	{
 		if ($this->hasAttribute($key)) {
 			return $this->attributes[$key];

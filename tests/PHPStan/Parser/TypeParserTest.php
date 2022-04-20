@@ -35,7 +35,10 @@ class TypeParserTest extends TestCase
 	/** @var TypeParser */
 	private $typeParser;
 
-	protected function setUp(): void
+	/**
+	 * @return void
+	 */
+	protected function setUp()
 	{
 		parent::setUp();
 		$this->lexer = new Lexer();
@@ -46,8 +49,12 @@ class TypeParserTest extends TestCase
 	/**
 	 * @dataProvider provideParseData
 	 * @param TypeNode|Exception $expectedResult
+	 *
+	 * @return void
+	 * @param string $input
+	 * @param int $nextTokenType
 	 */
-	public function testParse(string $input, $expectedResult, int $nextTokenType = Lexer::TOKEN_END): void
+	public function testParse($input, $expectedResult, $nextTokenType = Lexer::TOKEN_END)
 	{
 		if ($expectedResult instanceof Exception) {
 			$this->expectException(get_class($expectedResult));

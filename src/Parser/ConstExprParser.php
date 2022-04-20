@@ -10,7 +10,11 @@ use function trim;
 class ConstExprParser
 {
 
-	public function parse(TokenIterator $tokens, bool $trimStrings = false): Ast\ConstExpr\ConstExprNode
+	/**
+	 * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokens
+	 * @param bool $trimStrings
+	 */
+	public function parse($tokens, $trimStrings = false): Ast\ConstExpr\ConstExprNode
 	{
 		if ($tokens->isCurrentTokenType(Lexer::TOKEN_FLOAT)) {
 			$value = $tokens->currentTokenValue();

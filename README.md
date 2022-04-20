@@ -1,4 +1,4 @@
-<h1 align="center">PHPDoc-Parser for PHPStan</h1>
+<h1 align="center">PHP 7.0 support for: PHPDoc-Parser for PHPStan</h1>
 
 <p align="center">
 	<a href="https://github.com/phpstan/phpdoc-parser/actions"><img src="https://github.com/phpstan/phpdoc-parser/workflows/Build/badge.svg" alt="Build Status"></a>

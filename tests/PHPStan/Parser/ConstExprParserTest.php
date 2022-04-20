@@ -25,7 +25,10 @@ class ConstExprParserTest extends TestCase
 	/** @var ConstExprParser */
 	private $constExprParser;
 
-	protected function setUp(): void
+	/**
+	 * @return void
+	 */
+	protected function setUp()
 	{
 		parent::setUp();
 		$this->lexer = new Lexer();
@@ -42,8 +45,13 @@ class ConstExprParserTest extends TestCase
 	 * @dataProvider provideStringNodeParseData
 	 * @dataProvider provideArrayNodeParseData
 	 * @dataProvider provideFetchNodeParseData
+	 *
+	 * @return void
+	 * @param string $input
+	 * @param \PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNode $expectedExpr
+	 * @param int $nextTokenType
 	 */
-	public function testParse(string $input, ConstExprNode $expectedExpr, int $nextTokenType = Lexer::TOKEN_END): void
+	public function testParse($input, $expectedExpr, $nextTokenType = Lexer::TOKEN_END)
 	{
 		$tokens = new TokenIterator($this->lexer->tokenize($input));
 		$exprNode = $this->constExprParser->parse($tokens);

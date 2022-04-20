@@ -20,7 +20,7 @@ class TemplateTagValueNode implements PhpDocTagValueNode
 	/** @var string (may be empty) */
 	public $description;
 
-	public function __construct(string $name, ?TypeNode $bound, string $description)
+	public function __construct(string $name, TypeNode $bound = null, string $description = null)
 	{
 		$this->name = $name;
 		$this->bound = $bound;

@@ -13,7 +13,7 @@ use function trim;
 class PhpDocParser
 {
 
-	private const DISALLOWED_DESCRIPTION_START_TOKENS = [
+	const DISALLOWED_DESCRIPTION_START_TOKENS = [
 		Lexer::TOKEN_UNION,
 		Lexer::TOKEN_INTERSECTION,
 	];
@@ -31,7 +31,10 @@ class PhpDocParser
 	}
 
 
-	public function parse(TokenIterator $tokens): Ast\PhpDoc\PhpDocNode
+	/**
+	 * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokens
+	 */
+	public function parse($tokens) : \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode
 	{
 		$tokens->consumeTokenType(Lexer::TOKEN_OPEN_PHPDOC);
 		$tokens->tryConsumeTokenType(Lexer::TOKEN_PHPDOC_EOL);
@@ -103,7 +106,10 @@ class PhpDocParser
 	}
 
 
-	public function parseTag(TokenIterator $tokens): Ast\PhpDoc\PhpDocTagNode
+	/**
+	 * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokens
+	 */
+	public function parseTag($tokens): Ast\PhpDoc\PhpDocTagNode
 	{
 		$tag = $tokens->currentTokenValue();
 		$tokens->next();
@@ -113,7 +119,11 @@ class PhpDocParser
 	}
 
 
-	public function parseTagValue(TokenIterator $tokens, string $tag): Ast\PhpDoc\PhpDocTagValueNode
+	/**
+	 * @param \PHPStan\PhpDocParser\Parser\TokenIterator $tokens
+	 * @param string $tag
+	 */
+	public function parseTagValue($tokens, $tag): Ast\PhpDoc\PhpDocTagValueNode
 	{
 		try {
 			$tokens->pushSavePoint();

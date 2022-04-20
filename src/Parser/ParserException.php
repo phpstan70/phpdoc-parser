@@ -33,7 +33,7 @@ class ParserException extends Exception
 		int $currentTokenType,
 		int $currentOffset,
 		int $expectedTokenType,
-		?string $expectedTokenValue = null
+		string $expectedTokenValue = null
 	)
 	{
 		$this->currentTokenValue = $currentTokenValue;
@@ -75,8 +75,10 @@ class ParserException extends Exception
 		return $this->expectedTokenType;
 	}
 
-
-	public function getExpectedTokenValue(): ?string
+	/**
+	 * @return string|null
+	 */
+	public function getExpectedTokenValue()
 	{
 		return $this->expectedTokenValue;
 	}

@@ -16,7 +16,10 @@ final class AttributesTest extends TestCase
 	/** @var PhpDocNode */
 	private $phpDocNode;
 
-	protected function setUp(): void
+	/**
+	 * @return void
+	 */
+	protected function setUp()
 	{
 		parent::setUp();
 		$lexer = new Lexer();
@@ -28,13 +31,19 @@ final class AttributesTest extends TestCase
 		$this->phpDocNode = $phpDocParser->parse($tokens);
 	}
 
-	public function testGetAttribute(): void
+	/**
+	 * @return void
+	 */
+	public function testGetAttribute()
 	{
 		$unKnownValue = $this->phpDocNode->getAttribute('unknown');
 		$this->assertNull($unKnownValue);
 	}
 
-	public function testSetAttribute(): void
+	/**
+	 * @return void
+	 */
+	public function testSetAttribute()
 	{
 		$this->phpDocNode->setAttribute('key', 'value');
 

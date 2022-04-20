@@ -25,7 +25,10 @@ class FuzzyTest extends TestCase
 	/** @var ConstExprParser */
 	private $constExprParser;
 
-	protected function setUp(): void
+	/**
+	 * @return void
+	 */
+	protected function setUp()
 	{
 		parent::setUp();
 		$this->lexer = new Lexer();
@@ -35,8 +38,11 @@ class FuzzyTest extends TestCase
 
 	/**
 	 * @dataProvider provideTypeParserData
+	 *
+	 * @return void
+	 * @param string $input
 	 */
-	public function testTypeParser(string $input): void
+	public function testTypeParser($input)
 	{
 		$tokens = new TokenIterator($this->lexer->tokenize($input));
 		$this->typeParser->parse($tokens);
@@ -55,8 +61,11 @@ class FuzzyTest extends TestCase
 
 	/**
 	 * @dataProvider provideConstExprParserData
+	 *
+	 * @return void
+	 * @param string $input
 	 */
-	public function testConstExprParser(string $input): void
+	public function testConstExprParser($input)
 	{
 		$tokens = new TokenIterator($this->lexer->tokenize($input));
 		$this->constExprParser->parse($tokens);

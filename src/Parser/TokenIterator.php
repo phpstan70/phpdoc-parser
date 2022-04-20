@@ -57,13 +57,19 @@ class TokenIterator
 	}
 
 
-	public function isCurrentTokenValue(string $tokenValue): bool
+	/**
+	 * @param string $tokenValue
+	 */
+	public function isCurrentTokenValue($tokenValue): bool
 	{
 		return $this->tokens[$this->index][Lexer::VALUE_OFFSET] === $tokenValue;
 	}
 
 
-	public function isCurrentTokenType(int $tokenType): bool
+	/**
+	 * @param int $tokenType
+	 */
+	public function isCurrentTokenType($tokenType): bool
 	{
 		return $this->tokens[$this->index][Lexer::TYPE_OFFSET] === $tokenType;
 	}
@@ -77,8 +83,11 @@ class TokenIterator
 
 	/**
 	 * @throws ParserException
+	 *
+	 * @return void
+	 * @param int $tokenType
 	 */
-	public function consumeTokenType(int $tokenType): void
+	public function consumeTokenType($tokenType)
 	{
 		if ($this->tokens[$this->index][Lexer::TYPE_OFFSET] !== $tokenType) {
 			$this->throwError($tokenType);
@@ -96,8 +105,12 @@ class TokenIterator
 
 	/**
 	 * @throws ParserException
+	 *
+	 * @return void
+	 * @param int $tokenType
+	 * @param string $tokenValue
 	 */
-	public function consumeTokenValue(int $tokenType, string $tokenValue): void
+	public function consumeTokenValue($tokenType, $tokenValue)
 	{
 		if ($this->tokens[$this->index][Lexer::TYPE_OFFSET] !== $tokenType || $this->tokens[$this->index][Lexer::VALUE_OFFSET] !== $tokenValue) {
 			$this->throwError($tokenType, $tokenValue);
@@ -113,8 +126,9 @@ class TokenIterator
 	}
 
 
-	/** @phpstan-impure */
-	public function tryConsumeTokenValue(string $tokenValue): bool
+	/** @phpstan-impure
+	 * @param string $tokenValue */
+	public function tryConsumeTokenValue($tokenValue): bool
 	{
 		if ($this->tokens[$this->index][Lexer::VALUE_OFFSET] !== $tokenValue) {
 			return false;
@@ -130,8 +144,9 @@ class TokenIterator
 	}
 
 
-	/** @phpstan-impure */
-	public function tryConsumeTokenType(int $tokenType): bool
+	/** @phpstan-impure
+	 * @param int $tokenType */
+	public function tryConsumeTokenType($tokenType): bool
 	{
 		if ($this->tokens[$this->index][Lexer::TYPE_OFFSET] !== $tokenType) {
 			return false;
@@ -157,8 +172,9 @@ class TokenIterator
 	}
 
 
-	/** @phpstan-impure */
-	public function joinUntil(int ...$tokenType): string
+	/** @phpstan-impure
+	 * @param int ...$tokenType */
+	public function joinUntil(...$tokenType): string
 	{
 		$s = '';
 		while (!in_array($this->tokens[$this->index][Lexer::TYPE_OFFSET], $tokenType, true)) {
@@ -167,8 +183,10 @@ class TokenIterator
 		return $s;
 	}
 
-
-	public function next(): void
+	/**
+	 * @return void
+	 */
+	public function next()
 	{
 		$this->index++;
 
@@ -179,27 +197,36 @@ class TokenIterator
 		$this->index++;
 	}
 
-	/** @phpstan-impure */
-	public function forwardToTheEnd(): void
+	/**
+	 * @phpstan-impure
+	 * @return void
+	 */
+	public function forwardToTheEnd()
 	{
 		$lastToken = count($this->tokens) - 1;
 		$this->index = $lastToken;
 	}
 
-
-	public function pushSavePoint(): void
+	/**
+	 * @return void
+	 */
+	public function pushSavePoint()
 	{
 		$this->savePoints[] = $this->index;
 	}
 
-
-	public function dropSavePoint(): void
+	/**
+	 * @return void
+	 */
+	public function dropSavePoint()
 	{
 		array_pop($this->savePoints);
 	}
 
-
-	public function rollback(): void
+	/**
+	 * @return void
+	 */
+	public function rollback()
 	{
 		$index = array_pop($this->savePoints);
 		assert($index !== null);
@@ -209,8 +236,10 @@ class TokenIterator
 
 	/**
 	 * @throws ParserException
+	 *
+	 * @return void
 	 */
-	private function throwError(int $expectedTokenType, ?string $expectedTokenValue = null): void
+	private function throwError(int $expectedTokenType, string $expectedTokenValue = null)
 	{
 		throw new ParserException(
 			$this->currentTokenValue(),

@@ -50,7 +50,10 @@ class PhpDocParserTest extends TestCase
 	/** @var PhpDocParser */
 	private $phpDocParser;
 
-	protected function setUp(): void
+	/**
+	 * @return void
+	 */
+	protected function setUp()
 	{
 		parent::setUp();
 		$this->lexer = new Lexer();
@@ -77,8 +80,14 @@ class PhpDocParserTest extends TestCase
 	 * @dataProvider provideTypeAliasImportTagsData
 	 * @dataProvider provideRealWorldExampleData
 	 * @dataProvider provideDescriptionWithOrWithoutHtml
+	 *
+	 * @return void
+	 * @param string $label
+	 * @param string $input
+	 * @param \PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode $expectedPhpDocNode
+	 * @param int $nextTokenType
 	 */
-	public function testParse(string $label, string $input, PhpDocNode $expectedPhpDocNode, int $nextTokenType = Lexer::TOKEN_END): void
+	public function testParse($label, $input, $expectedPhpDocNode, $nextTokenType = Lexer::TOKEN_END)
 	{
 		$tokens = new TokenIterator($this->lexer->tokenize($input));
 		$actualPhpDocNode = $this->phpDocParser->parse($tokens);
@@ -3978,9 +3987,14 @@ Finder::findFiles('*.php')
 
 	/**
 	 * @dataProvider dataParseTagValue
-	 * @param PhpDocNode $expectedPhpDocNode
+	 * @param \PHPStan\PhpDocParser\Ast\Node $expectedPhpDocNode
+	 *
+	 * @return void
+	 * @param string $tag
+	 * @param string $phpDoc
+	 * @param int $nextTokenType
 	 */
-	public function testParseTagValue(string $tag, string $phpDoc, Node $expectedPhpDocNode, int $nextTokenType = Lexer::TOKEN_END): void
+	public function testParseTagValue($tag, $phpDoc, $expectedPhpDocNode, $nextTokenType = Lexer::TOKEN_END)
 	{
 		$tokens = new TokenIterator($this->lexer->tokenize($phpDoc));
 		$actualPhpDocNode = $this->phpDocParser->parseTagValue($tokens, $tag);

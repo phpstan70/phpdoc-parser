@@ -11,8 +11,12 @@ final class NodePrintTest extends TestCase
 
 	/**
 	 * @dataProvider providePhpDocData
+	 *
+	 * @return void
+	 * @param \PHPStan\PhpDocParser\Ast\Node $node
+	 * @param string $expectedPrinted
 	 */
-	public function testPrintMultiline(Node $node, string $expectedPrinted): void
+	public function testPrintMultiline($node, $expectedPrinted)
 	{
 		$this->assertSame($expectedPrinted, (string) $node);
 	}

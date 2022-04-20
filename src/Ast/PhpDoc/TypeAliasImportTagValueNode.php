@@ -20,7 +20,7 @@ class TypeAliasImportTagValueNode implements PhpDocTagValueNode
 	/** @var string|null */
 	public $importedAs;
 
-	public function __construct(string $importedAlias, IdentifierTypeNode $importedFrom, ?string $importedAs)
+	public function __construct(string $importedAlias, IdentifierTypeNode $importedFrom, string $importedAs = null)
 	{
 		$this->importedAlias = $importedAlias;
 		$this->importedFrom = $importedFrom;
